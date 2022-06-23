@@ -37,6 +37,24 @@ function App() {
         setStudentData(students);
     };
 
+    const addStudentData = (newStudent) => {
+        // Duplicate the student list
+        const newStudentList = [...studentData];
+
+        // Logic to generate the next valid student ID
+        const nextId =
+            Math.max(...newStudentList.map((student) => student.id)) + 1;
+
+        newStudentList.push({
+            id: nextId,
+            nameData: newStudent.nameData,
+            emailData: newStudent.emailData,
+            isPresentData: false,
+        });
+
+        setStudentData(newStudentList);
+    };
+
     return (
         <main>
             <h1>Attendance</h1>
@@ -48,6 +66,7 @@ function App() {
                 students={studentData}
                 onUpdateStudent={updateStudentData}
             ></StudentList>
+            <NewStudentForm addStudentCallback={addStudentData} />
         </main>
     );
 }
